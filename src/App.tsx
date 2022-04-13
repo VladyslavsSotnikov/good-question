@@ -106,7 +106,7 @@ export const App = () => {
   return (
     <>
       <Typography variant='h3' className={classes.title}>
-        Удачный вопрос
+        Good question
       </Typography>
       <div className={classes.container}>
         <div className={classes.circles}>
@@ -124,14 +124,14 @@ export const App = () => {
             ))}
         </div>
         <div className={classes.rightSide}>
-          <Typography variant='h2' className={classes.text}>
-            Сумма:{score}
+          <Typography variant='h4' className={classes.text}>
+            Total score:{score}
           </Typography>
-          <Typography variant='h2' className={classes.text}>
-            Выпало:{currentScore}
+          <Typography variant='h4' className={classes.text}>
+            Current score:{currentScore}
           </Typography>
-          <Button onClick={onClickReset}>Сбросить</Button>
-          <Button onClick={onClickGenerate}>Cгенерировать</Button>
+          <Button onClick={onClickReset}>Reset</Button>
+          <Button onClick={onClickGenerate}>Generate</Button>
         </div>
       </div>
     </>
