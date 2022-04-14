@@ -1,40 +1,28 @@
 import { makeStyles } from '@mui/styles';
-import { VFC } from 'react';
+import { memo, VFC } from 'react';
+import { CircleItem } from '../models/CircleItem';
 
-export interface ICircle {
-  id: number;
-  score: number;
-  color: string;
-  isVisible: boolean;
-}
-
-export interface ICircleProps extends ICircle {
+export interface CircleProps extends CircleItem {
   onCircleClick: (id: number, score: number) => void;
 }
 
 const useStyles = makeStyles({
-  circle: {
-    display: 'flex',
+  circle: ({ isVisible }: { isVisible: boolean }) => ({
+    display: isVisible ? 'flex' : 'none',
     width: '100%',
     height: '100%',
     backgroundColor: 'red',
     borderRadius: '100px',
     cursor: 'pointer',
-  },
+  }),
 });
 
-export const Circle: VFC<ICircleProps> = ({ id, color, score, isVisible, onCircleClick }) => {
-  const classes = useStyles();
-  // console.log('isVisible', isVisible);
+export const Circle: VFC<CircleProps> = memo(({ id, color, score, isVisible, onCircleClick }) => {
+  const classes = useStyles({
+    isVisible,
+  });
+
   return (
-    <>
-      {isVisible && (
-        <div
-          className={classes.circle}
-          style={{ backgroundColor: color }}
-          onClick={() => onCircleClick(id, score)}
-        ></div>
-      )}
-    </>
+    <div className={classes.circle} style={{ backgroundColor: color }} onClick={() => onCircleClick(id, score)}></div>
   );
-};
+});
