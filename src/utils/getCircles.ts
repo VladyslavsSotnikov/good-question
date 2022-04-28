@@ -1,18 +1,21 @@
-import { CircleItem } from '../models/CircleItem';
+import { CircleColor, CircleItem, CircleScore } from '../models/CircleItem';
 
-const NUMBER_OF_CIRCLES = 91;
-const FIRST_SCORE_OPTION = 0;
-const SECOND_SCORE_OPTION = 50;
-const THIRD_SCORE_OPTION = 100;
+export const FIRST_SCORE_OPTION = 0;
+export const SECOND_SCORE_OPTION = 50;
+export const THIRD_SCORE_OPTION = 100;
 
-const PURPLE = '#B183D6';
-const YELLOW = '#D6B183';
-const GREEN = '#83D6B1';
+export const PURPLE = '#B183D6';
+export const YELLOW = '#D6B183';
+export const GREEN = '#83D6B1';
 
-export const getCircles = (): CircleItem[] => {
-  return new Array(NUMBER_OF_CIRCLES).fill(null).map((el, index) => {
-    let score = null;
-    let color = null;
+export function getCircles(count: number): (CircleItem | null)[] | null {
+  if (count <= 0) {
+    return null;
+  }
+
+  return new Array(Math.floor(count)).fill(null).map((el, index) => {
+    let score: CircleScore;
+    let color: CircleColor;
     const randomNumber = Math.random();
 
     if (randomNumber <= 0.1) score = FIRST_SCORE_OPTION;
@@ -23,11 +26,26 @@ export const getCircles = (): CircleItem[] => {
     else if (randomNumber > 0.33 && randomNumber <= 0.66) color = YELLOW;
     else color = GREEN;
 
-    return {
-      id: index + 1,
-      score: score,
-      color: color,
-      isVisible: true,
-    };
+    const circle = getCircle(index + 1, score, color, true);
+
+    return circle;
   });
+}
+
+export const getCircle = (
+  id: number,
+  score: CircleScore,
+  color: CircleColor,
+  isVisible: boolean
+): CircleItem | null => {
+  if (id < 0) {
+    return null;
+  }
+
+  return {
+    id,
+    score,
+    color,
+    isVisible,
+  };
 };

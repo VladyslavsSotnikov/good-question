@@ -5,10 +5,10 @@ import { CircleItem } from '../models/CircleItem';
 import { Circle } from './Circle';
 
 interface CirclesProps {
-  circles: CircleItem[] | null;
+  circles: (CircleItem | null)[] | null;
   setScore: React.Dispatch<React.SetStateAction<number>>;
   setCurrentScore: React.Dispatch<React.SetStateAction<number | null>>;
-  setCircles: React.Dispatch<React.SetStateAction<CircleItem[] | null>>;
+  setCircles: React.Dispatch<React.SetStateAction<(CircleItem | null)[] | null>>;
 }
 
 const useStyles = makeStyles({
@@ -43,6 +43,10 @@ export const Circles: VFC<CirclesProps> = ({ circles, setScore, setCurrentScore,
         (prevState) =>
           prevState &&
           prevState.map((circle) => {
+            if (!circle) {
+              return null;
+            }
+
             if (circle.id === id) {
               return {
                 ...circle,
@@ -60,17 +64,23 @@ export const Circles: VFC<CirclesProps> = ({ circles, setScore, setCurrentScore,
   return (
     <div className={classes.circles}>
       {circles &&
-        circles.map((circle) => (
-          <div key={circle.id} className={classes.circleWrapper}>
-            <Circle
-              id={circle.id}
-              color={circle.color}
-              score={circle.score}
-              isVisible={circle.isVisible}
-              onCircleClick={onCircleClick}
-            />
-          </div>
-        ))}
+        circles.map((circle) => {
+          if (!circle) {
+            return null;
+          }
+
+          return (
+            <div key={circle.id} className={classes.circleWrapper}>
+              <Circle
+                id={circle.id}
+                color={circle.color}
+                score={circle.score}
+                isVisible={circle.isVisible}
+                onCircleClick={onCircleClick}
+              />
+            </div>
+          );
+        })}
     </div>
   );
 };

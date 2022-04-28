@@ -8,6 +8,7 @@ import { CircleItem } from './models/CircleItem';
 import { getCircles } from './utils/getCircles';
 
 const DEFAULT_SCORE = 0;
+const NUMBER_OF_CIRCLES = 91;
 
 const useStyles = makeStyles({
   container: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
 
 export const App = () => {
   const classes = useStyles();
-  const [circles, setCircles] = useState<CircleItem[] | null>(null);
+  const [circles, setCircles] = useState<(CircleItem | null)[] | null>(null);
   const [score, setScore] = useState<number>(DEFAULT_SCORE);
   const [currentScore, setCurrentScore] = useState<number | null>(null);
 
@@ -28,7 +29,7 @@ export const App = () => {
   };
 
   const onClickGenerate = () => {
-    const circles = getCircles();
+    const circles = getCircles(NUMBER_OF_CIRCLES);
     setCircles(circles);
   };
 
