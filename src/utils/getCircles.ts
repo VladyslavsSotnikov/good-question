@@ -8,9 +8,9 @@ export const PURPLE = '#B183D6';
 export const YELLOW = '#D6B183';
 export const GREEN = '#83D6B1';
 
-export function getCircles(count: number): (CircleItem | null)[] | null {
+export function getCircles(count: number): CircleItem[] {
   if (count <= 0) {
-    return null;
+    return [];
   }
 
   return new Array(Math.floor(count)).fill(null).map((el, index) => {
@@ -32,16 +32,7 @@ export function getCircles(count: number): (CircleItem | null)[] | null {
   });
 }
 
-export const getCircle = (
-  id: number,
-  score: CircleScore,
-  color: CircleColor,
-  isVisible: boolean
-): CircleItem | null => {
-  if (id < 0) {
-    return null;
-  }
-
+export const getCircle = (id: number, score: CircleScore, color: CircleColor, isVisible: boolean): CircleItem => {
   return {
     id,
     score,

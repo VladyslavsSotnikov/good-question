@@ -11,8 +11,4 @@ describe('getCircle function', () => {
 
     expect(getCircle(5, 100, '#B183D6', true)).toMatchObject(expectedCircle);
   });
-
-  it('returns null if provided negative id', () => {
-    expect(getCircle(-1, 100, '#B183D6', true)).toBe(null);
-  });
 });

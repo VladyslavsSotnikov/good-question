@@ -5,10 +5,10 @@ import { CircleItem } from '../models/CircleItem';
 import { Circle } from './Circle';
 
 interface CirclesProps {
-  circles: (CircleItem | null)[] | null;
+  circles: CircleItem[];
   setScore: React.Dispatch<React.SetStateAction<number>>;
   setCurrentScore: React.Dispatch<React.SetStateAction<number | null>>;
-  setCircles: React.Dispatch<React.SetStateAction<(CircleItem | null)[] | null>>;
+  setCircles: React.Dispatch<React.SetStateAction<CircleItem[]>>;
 }
 
 const useStyles = makeStyles({
@@ -43,10 +43,6 @@ export const Circles: VFC<CirclesProps> = ({ circles, setScore, setCurrentScore,
         (prevState) =>
           prevState &&
           prevState.map((circle) => {
-            if (!circle) {
-              return null;
-            }
-
             if (circle.id === id) {
               return {
                 ...circle,
@@ -65,10 +61,6 @@ export const Circles: VFC<CirclesProps> = ({ circles, setScore, setCurrentScore,
     <div className={classes.circles}>
       {circles &&
         circles.map((circle) => {
-          if (!circle) {
-            return null;
-          }
-
           return (
             <div key={circle.id} className={classes.circleWrapper}>
               <Circle

@@ -7,12 +7,12 @@ describe('getCircles function', () => {
   });
 
   it('returns null if provided nagative number', () => {
-    expect(getCircles(-1)).toBe(null);
-    expect(getCircles(-100)).toBe(null);
+    expect(getCircles(-1).length).toBe(0);
+    expect(getCircles(-100).length).toBe(0);
   });
 
   it('returns null if provided zero', () => {
-    expect(getCircles(0)).toBe(null);
+    expect(getCircles(0).length).toBe(0);
   });
 
   it('returns the integer part of number', () => {

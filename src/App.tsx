@@ -19,8 +19,8 @@ const useStyles = makeStyles({
 
 export const App = () => {
   const classes = useStyles();
-  const [circles, setCircles] = useState<(CircleItem | null)[] | null>(null);
-  const [score, setScore] = useState<number>(DEFAULT_SCORE);
+  const [circles, setCircles] = useState([] as CircleItem[]);
+  const [score, setScore] = useState(DEFAULT_SCORE);
   const [currentScore, setCurrentScore] = useState<number | null>(null);
 
   const onClickReset = () => {
