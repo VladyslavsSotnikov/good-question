@@ -8,24 +8,17 @@ export const PURPLE = '#B183D6';
 export const YELLOW = '#D6B183';
 export const GREEN = '#83D6B1';
 
+const colors: CircleColor[] = [PURPLE, YELLOW, GREEN];
+const scors: CircleScore[] = [FIRST_SCORE_OPTION, SECOND_SCORE_OPTION, THIRD_SCORE_OPTION];
+
 export function getCircles(count: number): CircleItem[] {
   if (count <= 0) {
     return [];
   }
 
   return new Array(Math.floor(count)).fill(null).map((el, index) => {
-    let score: CircleScore;
-    let color: CircleColor;
-    const randomNumber = Math.random();
-
-    if (randomNumber <= 0.1) score = FIRST_SCORE_OPTION;
-    else if (randomNumber > 0.1 && randomNumber <= 0.6) score = SECOND_SCORE_OPTION;
-    else score = THIRD_SCORE_OPTION;
-
-    if (randomNumber <= 0.33) color = PURPLE;
-    else if (randomNumber > 0.33 && randomNumber <= 0.66) color = YELLOW;
-    else color = GREEN;
-
+    const score = getRandomItem() as CircleScore;
+    const color = getRandomItem(colors, [0.33, 0.66]) as CircleColor;
     const circle = getCircle(index + 1, score, color, true);
 
     return circle;
@@ -39,4 +32,15 @@ export const getCircle = (id: number, score: CircleScore, color: CircleColor, is
     color,
     isVisible,
   };
+};
+
+export const getRandomItem = (items: (CircleScore | CircleColor)[] = scors, chances: number[] = [0.1, 0.6]) => {
+  let randomItem: CircleScore | CircleColor;
+  const randomNumber = Math.random();
+
+  if (randomNumber <= chances[0]) randomItem = items[0];
+  else if (randomNumber > chances[0] && randomNumber <= chances[1]) randomItem = items[1];
+  else randomItem = items[2];
+
+  return randomItem;
 };
